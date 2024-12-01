@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir Cliente - GymStructure</title>
+    <link rel="stylesheet" href="addCliente.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar con menú de navegación -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./images/logo.png" alt="Logo" class="logo-icon">
+            </div>
+            <nav class="menu">
+                <button class="menu-item" onclick="window.location.href='home.php'">Clientes</button>
+                <button class="menu-item">Actividades</button>
+                <button class="menu-item">Quienes Somos</button>
+                <button class="menu-item">Reportes</button>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <div class="header">
+                <h1>Añadir Cliente</h1>
+            </div>
+            <form class="client-form" action="addCliente.php" method="POST">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="actividad">Actividad Principal:</label>
+                <select id="actividad" name="actividad" required>
+                    <option value="">Seleccione una actividad</option>
+                    <option value="defensa_personal">Defensa Personal</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="fuerza">Fuerza</option>
+                </select>
+
+                <label for="fecha">Fecha de fin de mensualidad:</label>
+                <input type="date" id="fecha" name="fecha" required>
+
+                <button type="submit" class="submit-btn">Guardar Cliente</button>
+            </form>
+        </main>
+
+        <!-- Imagen de fondo a la derecha -->
+        <aside class="image-sidebar">
+            <img src="gym-image.jpeg" alt="Imagen del gimnasio" class="gym-image">
+        </aside>
+    </div>
+</body>
+</html>

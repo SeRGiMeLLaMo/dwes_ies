@@ -1,0 +1,1 @@
+En nuestra carpeta "0_Introduccion" comentaremos sobre el video de la introduccion y lo que nos parece.
