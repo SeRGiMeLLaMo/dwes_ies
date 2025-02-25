@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -26,5 +27,25 @@ class UserController extends Controller
         
       }
 
+      public function create(){
+        User::create([
+            "name" => "Jose",
+            "email" => "jose@gmail.org",
+            "password"=> Hash::make('1234'),
+            "age"=> 42,
+            "address"=> "Calle Martinez50",
+            "zip_code" => 15151515
+        ]);
+
+        User::create([
+            "name" => "Alejandro",
+            "email" => "Alejandro@gmail.es",
+            "password"=> Hash::make('1234'),
+            "age"=> 34,
+            "address"=> "Calle Carreteros 8",
+            "zip_code" => 151515
+        ]);
+       
+    }
       
 }
