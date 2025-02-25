@@ -1,153 +1,182 @@
-# Migraciones y Modelos en Laravel
+# 3_Migraciones y Modelos
 
+En este episodio, nos metemos de lleno en  **migraciones y modelos en Laravel** . Básicamente, vamos a trabajar con la base de datos de una manera limpia y organizada, sin tener que tocar directamente las tablas.
 
-## Comandos de Artisan Migrate en Laravel
+## **Configuración de la Capa de Persistencia**
 
-En Laravel, el sistema de migraciones permite gestionar la estructura de la base de datos mediante comandos de Artisan. A continuación, se listan los comandos más utilizados, junto con una breve explicación de cada uno.
+### Creando el Proyecto
 
----
+Primero, arrancamos con un nuevo proyecto llamado `modeldata`:
 
-### Comandos Básicos
+```
+laravel new modeldata
+```
 
-#### 1. **Ejecutar Migraciones**
+Elegimos la opción **none** para no usar un starter kit.
 
-Ejecuta todas las migraciones pendientes en la base de datos configurada.
+### Configuración de la Base de Datos
 
-```bash
+Laravel usa **Eloquent** como ORM para manejar la base de datos. Debemos decirle a Laravel qué sistema de base de datos usaremos. En el `.env`, configuramos **SQLite** (en el video usan MySQL).
+
+Podemos ver más detalles en `/Config/database.php`, pero en general, si no queremos cambiar algo raro, ahí no hay que tocar nada.
+
+### Corremos las Migraciones Iniciales
+
+```
 php artisan migrate
 ```
 
-- **Ejemplo de salida:**
-  ```
-  INFO Running migrations.
-  2025_01_14_000001_create_users_table ......................................... DONE
-  ```
+Esto crea todas las tablas por defecto en nuestra base de datos. Si intentamos ejecutarlo de nuevo, Laravel nos dirá:
 
-#### 2. **Crear una Nueva Migración**
-
-Genera un archivo de migración en el directorio `database/migrations`.
-
-```bash
-php artisan make:migration nombre_de_la_migracion
+```
+INFO Nothing to migrate.
 ```
 
-- **Opción común:**
-
-  - `--create=nombre_tabla`: Añade automáticamente la estructura para crear una nueva tabla.
-
-  ```bash
-  php artisan make:migration create_users_table --create=users
-  ```
-
-  - `--table=nombre_tabla`: Define que la migración es para modificar una tabla existente.
-
-  ```bash
-  php artisan make:migration add_email_to_users_table --table=users
-  ```
+✅ Con esto ya tenemos la estructura de las tablas configurada.
 
 ---
 
-### Rollbacks y Modificaciones
+## **Migraciones**
 
-#### 3. **Deshacer la Última Migración Ejecutada (Rollback)**
+### Crear una Nueva Migración
 
-Revierte la última migración ejecutada.
+```
+php artisan make:migration create_notes_table
+```
 
-```bash
+Esto genera un archivo en `database/migrations/` con el nombre de la migración.
+
+El archivo contiene una **clase** que extiende `Migration`, con dos métodos clave:
+
+* **`up`** → Define la estructura de la tabla.
+* **`down`** → Borra la tabla si hacemos rollback.
+
+### Estructura de la Migración
+
+```
+Schema::create('notes', function (Blueprint $table) {
+    $table->id();
+    $table->string('description', 255)->nullable();
+    $table->boolean('done')->default(false);
+    $table->timestamps();
+});
+```
+
+Después de definir la estructura, volvemos a migrar para aplicar cambios:
+
+```
+php artisan migrate
+```
+
+Nomenclatura de Tablas
+
+* Tablas en plural y en minúsculas (`notes` y no `note`).
+* Modelos en singular y con PascalCase (`Note`).
+
+## **Rollback: ¿Y si nos equivocamos?**
+
+Si cometemos un error en la migración, **NO** editamos la base de datos manualmente. Lo correcto es hacer un rollback.
+
+### Opción 1: Rollback de la Última Migración
+
+```
 php artisan migrate:rollback
 ```
 
-- **Ejemplo de salida:**
-  ```
-  INFO Rolling back migrations.
-  2025_01_14_000001_create_users_table ......................................... DONE
-  ```
+### Opción 2: Rollback Total
 
-#### 4. **Resetear Migraciones**
-
-Elimina todas las tablas generadas por las migraciones, dejando la base de datos vacía.
-
-```bash
+```
 php artisan migrate:reset
 ```
 
-#### 5. **Refrescar Migraciones**
+### Opción 3: Eliminar y Reaplicar Todo
 
-Realiza un `reset` y luego vuelve a ejecutar todas las migraciones.
-
-```bash
+```
 php artisan migrate:refresh
 ```
 
-- **Opción común:**
-  - `--seed`: También ejecuta los seeders después de refrescar las migraciones.
 
-  ```bash
-  php artisan migrate:refresh --seed
-  ```
-
-#### 6. **Rollback por Lote**
-
-Permite revertir migraciones específicas mediante el número de lote.
-
-```bash
-php artisan migrate:rollback --batch=numero_lote
-```
 
 ---
 
-### Otros Comandos
 
-#### 7. **Ver el Estado de las Migraciones**
 
-Muestra una lista de todas las migraciones y su estado (pendiente o ejecutada).
+Si queremos modificar una tabla sin perder datos,  **creamos una nueva migración de actualización** :
 
-```bash
-php artisan migrate:status
+```
+php artisan make:migration update_notes_table
 ```
 
-- **Ejemplo de salida:**
-  ```
-  +------+---------------------------------------------------+-------+
-  | Ran? | Migration                                         | Batch |
-  +------+---------------------------------------------------+-------+
-  | Yes  | 2025_01_14_000001_create_users_table             | 1     |
-  | No   | 2025_01_14_000002_add_email_to_users_table       |       |
-  +------+---------------------------------------------------+-------+
-  ```
 
-#### 8. **Borrar Tablas y Volver a Migrar**
+En lugar de `Schema::create`, usamos `Schema::table` para modificar una tabla existente.
 
-Este comando elimina y recrea todas las tablas en un solo paso.
-
-```bash
-php artisan migrate:fresh
+```
+Schema::table('notes', function (Blueprint $table) {
+    $table->string('author');
+    $table->dropColumn(['deadline']);
+});
 ```
 
-- **Opción común:**
-  - `--seed`: También ejecuta los seeders después de recrear las tablas.
-
-  ```bash
-  php artisan migrate:fresh --seed
-  ```
-
-#### 9. **Migrar una Específica**
-
-Ejecuta una migración específica, indicada por su nombre.
-
-```bash
-php artisan migrate --path=/database/migrations/nombre_de_migracion.php
-```
 
 ---
 
-### Notas Importantes
 
-- **Convención de nombres:**
-  - Las migraciones deben seguir una convención de nombres para ser fácilmente reconocibles, como `create_users_table` o `add_email_to_users_table`.
-- **Directorio de migraciones:** Todos los archivos de migración se ubican en `database/migrations`.
-- **Rollback seguro:** Es preferible usar `rollback` en lugar de modificar las tablas directamente en la base de datos.
 
----
+## **Modelos en Laravel**
 
-Esta lista cubre los comandos más importantes relacionados con migraciones en Laravel. Utiliza estas herramientas para mantener una base de datos bien gestionada y sincronizada con el código de tu aplicación.
+Aquí es donde Laravel hace su magia:  **trabajamos con clases en lugar de tocar directamente la base de datos** .
+
+Crear un Modelo
+
+```
+php artisan make:model Note
+```
+
+Esto crea el archivo `app/Models/Note.php`, donde definimos la estructura del modelo.
+
+```
+class Note extends Model
+{
+    protected $table = 'notes'; // Si el nombre no sigue la convención, lo especificamos aquí.
+
+    protected $fillable = ['description', 'done', 'author']; // Campos permitidos
+    protected $guarded = ['id']; // Campos protegidos (opcional)
+    protected $casts = ['done' => 'boolean']; // Convertir datos al tipo correcto
+}
+```
+
+Si la tabla no sigue la convención de nombres , la vinculamos manualmente:
+
+```
+protected $table = 'notas';
+```
+
+
+## **Atajos para Crear Modelos y Migraciones**
+
+Para hacer **modelo + migración** en un solo paso:
+
+```
+php artisan make:model Author --migration
+
+```
+
+Para crear **modelo, migración, factory y más** en un solo comando:
+
+```
+php artisan make:model Flight -mfsc
+
+```
+
+Si queremos **crear todo de una vez** (modelo, migración, factory, seeder, policy, controller, requests):
+
+```
+php artisan make:model Flight --all
+```
+
+## **Conclusión**
+
+✅ **Migraciones** → Definen la estructura de la base de datos sin tocarla directamente.
+✅ **Modelos** → Permiten interactuar con la base de datos usando código limpio y POO.
+✅ **Eloquent ORM** → Hace que trabajar con la base de datos sea más fácil y automático.
+✅ **Laravel es** → Nos da herramientas para hacer todo de forma organizada y sin estrés.
