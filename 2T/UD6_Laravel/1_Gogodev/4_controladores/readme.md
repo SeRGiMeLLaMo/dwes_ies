@@ -71,7 +71,6 @@ Para ello nos vamos a ir a la tabla que se encuentra en `4_Controladores\control
 
 A continuación repasamos nuestro modelo y añadimos los nuevos elementos, el modelo se encuentra en `4_Controladores\controllers\app\Models\User.php` y lo modificamos de tal manera que el ***$fillable*** nos quede tal que así:
 
-
 ```
 protected $fillable = [
         'name',
@@ -84,7 +83,6 @@ protected $fillable = [
 ```
 
 Si nos fijamos hay otros datos del modelo que NO aparecen en el fillable porque son automáticos y no son cumplimentables, como el ID y, además, hay algunos hidden y otros que definen el cast
-
 
 ### 2.1.3 Migración de contenido
 
@@ -112,13 +110,13 @@ Recordamos el flujo MVC:
 
 **Vamos a cerrar el circuito anterior.**
 
-### Ruta web.php
+#### Ruta web.php
 
 Antes en la ruta web, hacíamos uso de la clase Route::view, a partir de ahora usaremos el controlador de cada Modelo para poder recuperar los datos,
 
 por ejemplo, en el índice vamos a mostrar todos los usuarios del sistema.:
 
-### Creamos controlador
+#### Creamos controlador
 
 Para poder seguir con nuestro punto necesitamos crear un controlador, deberíamos de crear un controlador para cada caso y no usar un mismo controlador que se ocupe de todo como por lo que para crear el ***UserController*** necesitaremos desde la consola de comandos poner:
 
@@ -133,12 +131,11 @@ Cada vez que creamos un controlador, este es una clase que está heredando una c
 
 Por ahora, vamos a pensar en un controlador por cada recurso, aunque hay diferentes opciones.
 
-### Convención ModelController
+#### Convención ModelController
 
 Va con el nombre del modelo y la palabra Controller en singular e inglés.
 
 Clase UserController extiende de Controller
-
 
 Aquí definimos funciones públicas para controlar una  **vista** .
 
@@ -183,7 +180,6 @@ Usamos Use para importar el controlador
 
 si hacemos un `php artisan serve` veremos:
 
-
 Siguiente paso, vinculamos controlador con vista y después, haremos que el controlador utilice datos.
 
 ### 2.2.2 Vinculación Controlador-Vista
@@ -223,7 +219,6 @@ Y si probamos a entrar al nevegador veremos que nos aparecerá el Hello world de
 
 Para lo que levantamos el servicio. Nuestra ruta ejecuta controlador y este, ejecuta la vista.
 
-
 El siguiente paso será añadir acciones contra los modelos para, por ejemplo, pintar el listadoo de usuarios.
 
 ## 3. Consultas a modelos, paso de información y pintado ([23.33](https://youtu.be/YJrCBe4hx3Y?list=PLDllzmccetSM50U0Y9fTOWHvSzAZ_W6Il&t=1411))
@@ -257,7 +252,6 @@ Eloquent es un patrón de diseño que se basa en active record para describir lo
         //return view('user.index');
       }
 ```
-
 
 Ahora en la vista podemos utilizar esos datos para pintarlos utilizando la ***directiva @foreach*** donde indicamos que para cada usuario pintamos un li con algún dato del usuario:
 
@@ -311,8 +305,7 @@ O de forma mas legible:
 </body>
 ```
 
-
-### 4. Inserción de datos
+## 4. Inserción de datos
 
 A continuación vamos a introducir unos datos de prueba para ver que todo funciona correctamente, para ello vamos a generar un sistema para cumplimentar con datos de prueba nuestro contenido, **no es el procedimiento habitual** pero en este caso nos va a venir bien para aprender.
 
@@ -385,8 +378,7 @@ Debido a que tenemos un ***sistema de persistencia*** ahora cada vez que acudamo
 2. Crea tres usuarios
 3. redirige al index que muestra esos usuarios.
 
-
-### 5. Eloquent
+## 5. Eloquent
 
 En este punto vamos a realizar consultas con Eloquent para consultar más complejas, hasta ahora nos hemos traído todos los datos.
 
@@ -436,7 +428,6 @@ Si ahora queremos ver la información de la edad para comprobarla, pues nos irem
     </ul>
 ```
 
-
 También podemos especificar límites dentro de nuestros resultados usando  ***limit()*** :
 
 ```
@@ -466,7 +457,7 @@ Eloquent también tiene desventajas como por ejemplo:
 * Nuestra lógica de negocio es totalmente dependiente de Laravel, no podríamos extraerla
 * No controlamos la eficiencia de las consultas
 
-### 6. SQL RAW ([1:11](https://youtu.be/YJrCBe4hx3Y?list=PLDllzmccetSM50U0Y9fTOWHvSzAZ_W6Il&t=4277))
+## 6. SQL RAW ([1:11](https://youtu.be/YJrCBe4hx3Y?list=PLDllzmccetSM50U0Y9fTOWHvSzAZ_W6Il&t=4277))
 
 Vamos a realizar las consultas sin apoyarnos en el ORM para poder utilizar consultas  ***SQL*** , para ello vamos a apoyarnos en la clase DB que nos permite realizar consultas, funciona de la sigueinte manera:
 

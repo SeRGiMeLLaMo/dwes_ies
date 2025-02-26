@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-        @yield('content')
+    @include('layouts._partials.messages')
+    @yield('content')
 </body>
 </html>
