@@ -38,6 +38,76 @@ Actualizar dependencias originales e introducir nuevos kits de inicio para **Rea
 
 > Basicamente la version de Laravel 12 **actualiza las dependencias ya existentes** y por ello las aplicaciones puede actualizarse a Laravel 12 **sin cambiar el codigo**.
 
+#### Maneras de crear un proyecto.
+
+![1742510437261](image/readme/1742510437261.png)
+
+###### OPCIÓN 1. Composer create proyect laravel/laravel miproyecto
+
+Instalación a través de Composer:
+
+> En la documentacion de Laravel 11 esta mal el comando ya que pone `composer create proyect laravel/laravel miproyecto` , no es proyect si no project y entre create y project va un guion, quedaria tal que asi:
+
+`composer create-project laravel/laravel miproyecto`
+
+Y comienza a descargar el proyecto
+
+> Recordar que para esta opcion deberas tener instalado **PHP **, **Composer** y **el instalador de Laravel** . Además, debes instalar **Node y NPM** o** Bun** para poder compilar los recursos del frontend de tu aplicación.
+
+![1742511125075](image/readme/1742511125075.png)
+
+Aqui vemos como crea el proyecto en su ultima version sin necesidad de especificar nada, te lo crea por defecto.
+
+---
+
+
+
+###### OPCIÓN 2. Laravel Herd: Nuevo proyecto
+
+![1742511393185](image/readme/1742511393185.png)
+
+Comencemos
+
+> Nos saldra una ventana para poner una licencia pero eso es para el PRO, en mi caso no lo tengo asi que omito ese paso.
+
+![1742511452829](image/readme/1742511452829.png)
+
+Le damos a abrir el Herd dashboard y despues a Open Sites:
+
+![1742511662873](image/readme/1742511662873.png)
+
+añadimos uno.
+
+![1742511684707](image/readme/1742511684707.png)
+
+New Laravel Project
+
+![1742511712720](image/readme/1742511712720.png)
+
+No starter kit en mi caso.
+
+![1742511754647](image/readme/1742511754647.png)
+
+ponemos nombre al proyecto en mi caso elijo el testing de PHPUnit y le doy a siguiente
+
+![1742511799988](image/readme/1742511799988.png)
+
+Ya esta creando el proyecto.
+
+![1742511909150](image/readme/1742511909150.png)
+
+Abrimos en el navegador:![1742511982621](image/readme/1742511982621.png)
+
+
+Ahora simplemente abrimos la carpeta del proyecto que  esta en la url que guardaste, en mi caso: `Users/sergi/herd/instalador`
+
+ en Visual Studio Code para empezar a trabajar sobre este.
+
+
+###### OPCIÓN 3. Instalador de Laravel
+
+> Esta opcion es la que usaremos posteriormente para HelloWorld, en dicho momento veran como se realiza.
+
 ---
 
 ## Elementos mas importantes.
@@ -123,16 +193,30 @@ De momento estos serian los elementos mas importantes algunos de ellos los verem
 Comencemos con una practica sencilla para ver como funciona, como ya cree un proyecto anteriormente lo hare de nuevo.
 
 > Primero crearemos el proyecto HelloWorld en mi caso lo hice por terminal asi se veria en la terminal:
+>
+> Recordemos que esta manera de crear el proyecto es con el instalador de Laravel una vez empiece a instalarse el mismo instalador nos hara preguntas de como queremos el proyecto.
 
 ![1742433318350](image/readme/1742433318350.png)
 
+Ese es el comando usado para crear nuestro proyecto:` laravel new NombreProyecto`
+
 ![1742433361618](image/readme/1742433361618.png)
+
+Una vez comience a instalarse, nos aparece la primera pregunta: ¿quisieras instalar un starter kit?
+
+nosotros escribiremos none ya que no es necesario
 
 ![1742433380462](image/readme/1742433380462.png)
 
+Aqui la segunda, ¿que framework de testing prefieres? en mi caso he elegido 1, PHPUnit aunque no lo veremos hasta mas adelante.
+
 ![1742433502299](image/readme/1742433502299.png)
 
+¿Que aplicacion de base de datos usas? En mi caso he elegido SQLite
+
 ![1742433522800](image/readme/1742433522800.png)
+
+¿Quieres arrancar por defecto las migraciones de la base de datos? Yo he elegido Si pero no es realmente necesario.
 
 ![1742433554405](image/readme/1742433554405.png)
 
