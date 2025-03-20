@@ -2,7 +2,7 @@
 
 @section('title', 'contacto')
 
-@section('body')
+@section('content')
     <h1>Contacto</h1>
         <form>
             <label for="name">Nombre:</label>
