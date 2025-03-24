@@ -60,8 +60,6 @@ Aqui vemos como crea el proyecto en su ultima version sin necesidad de especific
 
 ---
 
-
-
 ###### OPCIÓN 2. Laravel Herd: Nuevo proyecto
 
 ![1742511393185](image/readme/1742511393185.png)
@@ -98,11 +96,9 @@ Ya esta creando el proyecto.
 
 Abrimos en el navegador:![1742511982621](image/readme/1742511982621.png)
 
-
 Ahora simplemente abrimos la carpeta del proyecto que  esta en la url que guardaste, en mi caso: `Users/sergi/herd/instalador`
 
  en Visual Studio Code para empezar a trabajar sobre este.
-
 
 ###### OPCIÓN 3. Instalador de Laravel
 

@@ -142,7 +142,7 @@ Incluiremos en el archivo landing, un header con un nav que a su vez sea una lis
 
 > Mi codigo en landing.blade.php quedaria asi:
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,7 +178,7 @@ Para ello creamos la carpeta _partials dentro de layouts, y vamos a crear un arc
 
 ![1742487375845](image/readme/1742487375845.png)
 
-```
+```html
 <header>
         <nav>
             <ul>
@@ -326,7 +326,7 @@ ahora para comprobar que funciona he añadido una ruta en web.php de esta vista 
 
 ![1742493095344](image/readme/1742493095344.png)
 
-> Asi se veria una vez arrancado:
+> Asi se veria una vez iniciado:
 
 ![1742493157114](image/readme/1742493157114.png)
 
@@ -354,7 +354,6 @@ Y lo incluimos en nuestro card haciendo uso de nuestro método estático asset
 
 ![1742494071046](image/readme/1742494071046.png)
 
-
 > El codigo se quedaria tal que asi:
 
 ```
@@ -365,7 +364,6 @@ Y lo incluimos en nuestro card haciendo uso de nuestro método estático asset
 
 </div>
 ```
-
 
 Este seria el resultado:
 
@@ -381,7 +379,7 @@ Creamos en public la carpeta **css** y creamos el archivo **style.css** con un c
 
 > style.css
 
-```
+```css
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -457,7 +455,6 @@ Se quedaria asi:
 
 ---
 
-
 > Resultado esperado.
 
 * El menú tendrá un fondo azul con texto blanco y un efecto de hover dorado.
@@ -471,3 +468,19 @@ Se quedaria asi:
 ---
 
 > Más adelante, a través de Vite podremos ubicarlo en otro sitio que no sea público
+
+
+
+---
+
+# Correcciones:
+
+En la documentacion hablo de las rutas absolutas, pero hay un error y el error es que cuando muestro las imagenes de como deberian de verse los enlaces a las rutas en el menu, confundo las llamadas a los enrutadores por las rutas absolutas. Correccion:
+
+#### Rutas Absolutas
+
+![1742487688726](https://file+.vscode-resource.vscode-cdn.net/c%3A/xampp/htdocs/dwes/recuperaci%C3%B3n/1%20Laravel_v12/2_Blade_vistas/image/readme/1742487688726.png)
+
+#### LLamada a los Enrutadores
+
+![1742487375845](https://file+.vscode-resource.vscode-cdn.net/c%3A/xampp/htdocs/dwes/recuperaci%C3%B3n/1%20Laravel_v12/2_Blade_vistas/image/readme/1742487375845.png)
