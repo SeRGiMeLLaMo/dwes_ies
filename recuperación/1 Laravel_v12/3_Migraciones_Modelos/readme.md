@@ -145,6 +145,7 @@ Con  **Schema** puedes:
 * **`Schema::create`**: Crear una tabla nueva.
 * **`Schema::table`**: Modificar una tabla existente.
 * **`Schema::drop`**: Eliminar una tabla.
+* `Schema::dropIfExist`: Elimina la tabla en caso de que exista
 
 > Para mas informacion aqui te dejo la [documentación ](https://laravel.com/docs/12.x/migrations#creating-tables)de Laravel que habla de ello, aqui tambien dejo un short de youtube que explica la clase schema de forma breve y un video que comenta unos tips con dicha clase aparte de los ya mencionados: [short](https://www.youtube.com/shorts/kgkYGb2xHkk) || [video](https://www.youtube.com/watch?v=ev-3ISnFU9o)
 
@@ -217,7 +218,7 @@ Bien, pues imaginemos que nos damos cuenta que algún campo se nos ha **olvidado
 
 Algo que no debemos hacer bajo ningun concepto es tocar las tablas directamente sobre la base de datos, poque podria deribar en un gran problema, para ello, la mayoria de veces usaremos Rollback.
 
-esto hara que como si de un viaje en el tiempo se tratara de un paso atras, hagamos un ejemplo:
+Esto hará que como si de un viaje en el tiempo se tratara de un paso atras, hagamos un ejemplo:
 
 #### Ejemplo Rollback
 
@@ -278,11 +279,7 @@ Ahora, en nuestro  **schema** , en vez de create vamos a usar la función table 
 
 > Tenemos que tener en cuenta que en el down ya no vamos a tirar la tabla entera si no que debemos realizar lo contrario que en el up
 
-
-
 ---
-
-
 
 > Se veria asi:
 
@@ -345,15 +342,11 @@ Anteriormente ya mencionamos sobre los modelos, que el **ORM** (Mapeador Relacio
 
 #### Ejemplo Modelos
 
-Vamos a crear el modelo Book, (importante la nomenclatura de los modelos: sera en **singular**, en **INGLÉS** y con **UpperCamelCase/PascalCase**)
+Vamos a crear el modelo *Book*, (importante la nomenclatura de los modelos: sera en **singular**, en **INGLÉS** y con **UpperCamelCase/PascalCase**)
 
 > **UpperCamelCase/PascalCase: cuando la primera letra de cada una de las palabras es mayúscula.**
 
-
-
 ---
-
-
 
 ###### ¿¿Como genero el modelo??
 
@@ -375,11 +368,9 @@ vemos que en laravel 12 **NO** incluye la **factory** por defecto, lpero eso lo 
 
 ---
 
-
-
 ###### Flujo del modelo y convención nombre tabla
 
-* ¿¿Como juntaríamos el **modelo** con su respectiva **tabla**??
+* ¿¿Como uniríamos el **modelo** con su respectiva **tabla**??
 
 En el caso de que hayamos escrito bien el nombre del modelo en **ingles** y en **singular**, ya debe saber que trabajara con la tabla **`create_books_table`**.
 
@@ -408,8 +399,6 @@ class Book extends Model
 ```
 
 > Para que todo sea perfectamente funcional faltaría la parte de **Controllers,** pero eso ya lo veremos a su debido momento, sigamos.
-
-
 
 ###### Fillable, Guard, Cast y Hidden
 
@@ -485,8 +474,6 @@ Ahora observemos que nos ha generado:
 ![1743338274868](image/readme/1743338274868.png)
 
 ---
-
-
 
 Nuestra Migracion:
 
