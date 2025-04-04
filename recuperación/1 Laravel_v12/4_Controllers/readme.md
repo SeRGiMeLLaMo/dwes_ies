@@ -2,7 +2,7 @@
 
 ![1743600045664](image/redme/1743600045664.png)
 
-> En este documento, veremos al igual que en el 2 trimestre **las migraciones y modelos en laravel**, practicaremos mientras que aprendemos sobre estos y documentaremos **paso a paso** para mayor entendimiento.
+> En este documento, veremos al igual que en el 2 trimestre **los controladores en laravel**, practicaremos mientras que aprendemos sobre estos y documentaremos **paso a paso** para mayor entendimiento.
 
 Ya hemos trabajado con vistas (blades), modelos y migraciones, A continuacion finalizaremos el ciclo del MVC (Modelo Vista Controlador) dando así comienzo al breve curso de controladores. Donde veremos diferentes herramientas para acceso a datos tanto a través del ORM Eloquent, SQL y sistemas mixtos...
 
@@ -260,7 +260,7 @@ Route::get('/', [BookController::class, 'index']) ->name('book.index');
 
 ```
 
-> Asi se veria mi clase` web.php`:
+> Asi se veria mi clase ` web.php`:
 
 ![1743717941774](image/redme/1743717941774.png)
 
@@ -360,7 +360,6 @@ class BookController extends Controller
 
 ```
 
-
 Una vez incluido debemos de obtener los elementos de ***Book*** desde la función  ***index*** , todo esto antes de devolver las vistas, para ello lo haremos de la siguiente manera:
 
 > Nos apoyaremos en algunos métodos estáticos como es ***`all`*** para esta labor.
@@ -402,7 +401,6 @@ class BookController extends Controller
 Ahora en la vista podemos utilizar esos datos para pintarlos utilizando la ***directiva @foreach*** donde indicamos que para cada libro pintamos un `li` con algún dato del libro:
 
 > Las directivas iterativas como foreach nos permiten recorrer una estructura, mientras que las selectivas nos permiten pintar o no cierta información en función de si se cumple alguna condición( ***@if, @switch, @else, @case...*** )
-
 
 > index.blade.php:
 
@@ -488,7 +486,7 @@ Route::get('/', [BookController::class, 'index']) ->name('book.index');
 Route::get('/create', [BookController::class, 'create']) ->name('book.create');
 ```
 
-Esta nueva ruta llamara a la funcion ***create** *pero para ello demosle forma desde` BookController`:
+Esta nueva ruta llamara a la funcion ***create** *pero para ello demosle forma desde ` BookController`:
 
 ```php
 public function create(){
@@ -507,12 +505,11 @@ public function create(){
     }
 ```
 
-
 > podemos ahorrarnos pasos como el guardado y la necesitdad de poner ***$book*** utilizando **Book::create([ DATOS DEL LIBRO ]);.** La forma anterior no es la única forma, podríamos hacer uso de User:create de la siguiente manera:
 
 ```php
  public function create(){
-      
+    
         Book::create([
         "title" => "El libro de la selva",
         "author" => "Rudyard Kipling",
