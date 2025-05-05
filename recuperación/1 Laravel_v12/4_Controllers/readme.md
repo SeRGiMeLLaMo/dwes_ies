@@ -268,8 +268,8 @@ Route::get('/', [BookController::class, 'index']) ->name('book.index');
 
 * Hemos usado **Use** para importar el controlador
 * Hemos usado el **get** sencillo sin autenticación que se vincula a un controlador
-* Especificamos ***BookController:class*** que es el método mágico, y como segundo parámetro, la función ***index***
-* nombramos la ruta como ***book.index***, ya que es ventajoso.
+* Especificamos ***BookController::class*** que es el método mágico, y como segundo parámetro, la función ***index***
+* nombramos la ruta como ***book.index***, ya que es ventajoso y mantenible.
 
 **Esto lo que hace es:**
 
@@ -505,11 +505,11 @@ public function create(){
     }
 ```
 
-> podemos ahorrarnos pasos como el guardado y la necesitdad de poner ***$book*** utilizando **Book::create([ DATOS DEL LIBRO ]);.** La forma anterior no es la única forma, podríamos hacer uso de User:create de la siguiente manera:
+> podemos ahorrarnos pasos como el guardado y la necesitdad de poner ***$book*** utilizando **Book::create([ DATOS DEL LIBRO ]);.** La forma anterior no es la única forma, podríamos hacer uso de Book::create de la siguiente manera:
 
 ```php
  public function create(){
-    
+  
         Book::create([
         "title" => "El libro de la selva",
         "author" => "Rudyard Kipling",
@@ -556,7 +556,7 @@ public function create(){
     }
 ```
 
-> He aprobechado para meter mas libros.
+> He aprovechado para meter mas libros.
 
 Una vez creados los libros queremos que se nos ***redirija al contenido de index*** en el que vamos a tener nuestra vista:
 
@@ -653,9 +653,9 @@ Ahora para comprobarlo debemos añadir* **/create*** a la **url**
 
 Al nosotros poner /create sucedió lo siguiente:
 
-1. sigue por la ruta al UserController función create
-2. Crea tres usuarios
-3. redirige al index que muestra esos usuarios.
+1. sigue por la ruta al BookController función create
+2. Crea cuatro ***b******ooks***
+3. redirige al index que muestra esos ***books***.
 
 ## Eloquent.
 

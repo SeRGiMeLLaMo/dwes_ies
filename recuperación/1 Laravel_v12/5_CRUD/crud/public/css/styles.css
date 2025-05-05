@@ -1,0 +1,182 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Tipografía global */
+body {
+    font-family: 'Poppins', 'Roboto', sans-serif;
+    background-color: #1a202c; /* gris oscuro azulado */
+    color: #e2e8f0; /* gris clarito */
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Encabezados */
+h1, h2, h3 {
+    margin-bottom: 20px;
+    color: #f7fafc; /* casi blanco suave */
+}
+
+/* Enlaces */
+a {
+    color: #63b3ed; /* azul suave */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Botones genéricos */
+button, input[type="submit"] {
+    background-color: #4299e1; /* azul medio */
+    color: #f7fafc;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #3182ce; /* azul más oscuro */
+}
+
+/* Formularios */
+form {
+    background-color: #2d3748; /* gris oscuro */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #e2e8f0;
+}
+
+input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="password"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #4a5568;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #1a202c;
+    color: #edf2f7;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, textarea:focus {
+    outline: none;
+    border-color: #63b3ed;
+    background-color: #2d3748;
+}
+
+/* Mensajes de error */
+small {
+    display: block;
+    margin-top: -15px;
+    margin-bottom: 10px;
+    color: #f56565; /* rojo suave */
+}
+
+/* Listas */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background: #2d3748;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Tarjetas (cards) */
+.card {
+    background: #2d3748;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+    margin-bottom: 20px;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Espaciados */
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.flex {
+    display: flex;
+    gap: 10px;
+}
+
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #a0aec0;
+}
+/* Alertas */
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Alerta de éxito */
+.success-alert {
+    background-color: #38a169; /* verde suave */
+    color: #f0fff4; /* verde claro para texto */
+    border-left: 5px solid #2f855a;
+}
+
+/* Alerta de peligro (error) */
+.danger-alert {
+    background-color: #e53e3e; /* rojo moderado */
+    color: #fff5f5; /* rosa pálido para texto */
+    border-left: 5px solid #c53030;
+}
+
+/* Animación simple para que aparezca más elegante */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
