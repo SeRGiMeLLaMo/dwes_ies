@@ -47,7 +47,7 @@ puedes hacer eso o como en mi caso copiar de nuevo el proyecto del curson anteri
 
 ![1746411612054](image/readme/1746411612054.png)
 
-Una vez creado nuestro proyecto en Laravel vamos a crear nuestro sistema de persistencia, en mi caso lo he creado dentro de HeidiSQL y le vamos a llamar  ***databases***.
+Una vez creado nuestro proyecto en Laravel vamos a crear nuestro sistema de persistencia, y le vamos a llamar  ***databases***.
 
 > Ya he comentado en otras ocasiones que trabajo con SQLite y que si trabajan con otro sistema de gestion de datos solo deben modificar el .env el apartado de conexión.
 
@@ -399,7 +399,7 @@ class BookSeeder extends Seeder
 }
 ```
 
-Nos apoyamos en el ORM dede Eloquent para poder **encadenar métodos** y no tener que poner todo el rato la función create o realizar bucles for innecesarios para crear tantos productos con sus datos como queramos.
+Nos apoyamos en el ORM Eloquent para poder **encadenar métodos** y no tener que poner todo el rato la función create o realizar bucles for innecesarios para crear tantos productos con sus datos como queramos.
 
 Para ver el resultado de todo lo realizado vamos a hacer desde la consola de comandos:
 
@@ -438,7 +438,7 @@ class BookFactory extends Factory
         return [
             'title'=>fake()->title(),
             'author'=>fake()->name(),
-            'genre'=>fake()->bookGenre(50),//Cadena random de 50 caracteres
+            'genre'=>fake()->name(50),//Cadena random de 50 caracteres
             'pages'=>fake()->numberBetween(40,2000),//Genera un número aleatorio entre 1 y 125
         ];
     }

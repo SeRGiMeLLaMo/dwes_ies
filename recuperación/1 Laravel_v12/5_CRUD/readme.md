@@ -82,7 +82,7 @@ Si es opcional: lo finalizamos con una interrogación
 A partir de aquí lo vemos en ejemplo, para ello usaremos nuestro controlador de BookController, tambien necesitaremos la migración y el modelo, pero si los quieres generar de cero serian con los siguientes comandos:
 
 * `php artisan make:controller NombreController` para generar el controlador.
-* `php artisan make:model Namemodel --migration` para generar el modelo y la migración a la vez.
+* `php artisan make:model NombreModelo --migration` para generar el modelo y la migración a la vez.
 
 Ahora modificaremos la migración, asi es como se ve en mi caso:
 
@@ -247,9 +247,8 @@ Si ahora levantamos el servicio para verlo:
 Y le pasamos algo a la ruta, esta la recepcionará, se la pasará a la vista, y la mostrará:
 
 * `http://127.0.0.1:8000/book/4`
-* `http://127.0.0.1:8000/book/muchos`
 
-![1745487022754](image/readme/1745487022754.png)![1745487044949](image/readme/1745487044949.png)
+![1745487022754](image/readme/1745487022754.png)
 
 > Esto sólo nos ha servido para ver la variable o parámetro que le pasamos a la ruta y los recogemos, el controlador lo recepciona y se lo pasa a la vista.
 
@@ -259,10 +258,10 @@ Es más normal, pasarlo a un modelo para su búsqueda.
 
 Probemoslo, modifiquemos el controller y el web.php
 
-* Controller= `public function index($id = 'UNICOS')`
+* Controller= `public function index($id = 1)`
 
 ```php
-public function index($id = 'UNICOS')
+public function index($id = 1)
     {
        // $books = Book::all();
         return view('books.index', compact('id'));
@@ -524,7 +523,7 @@ Para evitar poner las rutas, vamos a crear un enlace en la vista index:
 
 ![1745504893197](image/readme/1745504893197.png)
 
-De la misma manera podemos enlazar la vista create con index para establecer una conexion y asi hacer mas comodo el desplazamiento por las distintas vistas.
+De la misma manera podemos enlazar la vista create con index para establecer una conexión y asi hacer mas cómodo el desplazamiento por las distintas vistas.
 
 ```php
 @section('content')
@@ -548,7 +547,7 @@ De la misma manera podemos enlazar la vista create con index para establecer una
 
 ## CRUD Parte 2
 
-Ahora vamos ha escribir una ruta para recibir los datos del formulario, será la ruta store:
+Ahora vamos a escribir una ruta para recibir los datos del formulario, será la ruta store:
 
 ```php
 Route::post('/book/store', [BookController::class, 'store'])->name('book.store');
@@ -1148,7 +1147,7 @@ Aqui vamos a **validar** para hacer **precisos los datos** que queremos guardar,
 
 ### Desde Controlador
 
-En el controlador, hacemos uso de Request y del método estático  **validate,** si dichas reglas **NO se cumplen**, se aboratá la función y lanza un **error**.
+En el controlador, hacemos uso de Request y del método estático  **validate,** si dichas reglas **NO se cumplen**, se cancelará la función y lanza un **error**.
 
 > validate y array (BookController.php):
 
@@ -1302,7 +1301,7 @@ class BookRequest extends FormRequest
     public function rules(): array
     {
         return [
-    
+  
                 'title' => 'required|string|max:255|min:1',
                 'author' => 'required|string|max:255|min:3',
                 'genre' => 'nullable|string|max:255|min:2',
@@ -1521,7 +1520,7 @@ En mi caso quedaría así:
         <label for="">Páginas</label>
         <input type="number" name="pages" value="{{ $book->pages }}">
         @error('pages')
-        <small style="color: red">{{ $message }}</small>    
+        <small style="color: red">{{ $message }}</small>  
         @enderror
         <br>
 
@@ -1687,8 +1686,6 @@ use App\Http\Requests\BookRequest; // Importar el request BookRequest
 ![1745818240531](image/readme/1745818240531.png)
 
 ---
-
-
 
 ## Estilos
 
