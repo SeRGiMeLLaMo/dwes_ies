@@ -374,7 +374,7 @@ class BookFactory extends Factory
 
 Ahora lo que queremos es indicar en nuestro **seeder** que queremos generar estos datos de prueba, para ello vamos a indicarle que queremos generar ciertos datos de prueba apoyándonos en el factory que hemos generado anteriormente
 
-Nos iremos a nuestro ***ProductSeeder.php***
+Nos iremos a nuestro ***BookSeeder.php***
 
 quitamos lo añadido anteriormente y usando el método `factory()` ponemos lo siguiente:
 

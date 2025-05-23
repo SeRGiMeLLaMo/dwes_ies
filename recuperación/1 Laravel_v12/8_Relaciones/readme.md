@@ -96,8 +96,6 @@ Como ya hemos dicho anteriormente trabajaremos con dos modelos, Libro y Autor. V
 
 * pd: Despues de realizar cambios en las migraciones se recomienda realizar un `php artisan migrate` en el caso de que no nos lo permita es porque quizas no sea la primera vez que lo hacemos, bastaria con hacer un `php artisan migrate:refresh`.
 
-
-
 ##### Migración.
 
 Nos moveremos al archivo de nuestra migracion, situado en: `database/migrations/2025_03_30_123552_create_authors_table.php`.
@@ -237,7 +235,7 @@ class Book extends Model
 
 #### Tabla "Puente".
 
-> Una vez tengamos lo principal vamos a comenzar a relacionar ambos modelos, para ello necesitaremos una Tabla Puente
+> Una vez tengamos lo principal vamos a comenzar a relacionar ambos modelos, para ello necesitaremos una Tabla Puente o tabla pivote.
 
 ##### ¿Que es?
 
@@ -245,7 +243,7 @@ class Book extends Model
 
 Y eso se debe a que necesitamos una **tabla intermedia** para poder **unir dos modelos que tengan una relación de muchos a muchos**, por ejemplo: no podemos poner un ` book_id` a `Author` por que tendra mas de uno y al igual pasa si añadimos `author_id` a `Book` que sería inservible, por ello crearemos una Tabla Puente para poder relacionar a ambos.
 
-> Esta tabla sigue una **nomenclatura** para su nombre esta sería: El nombre del modelo1 y el nombre del modelo2 ordenados alfabeticamente, todo en minuscula y separados por un guien bajo, es decir: En mi caso mis modelos son Book y Author, pues se vería tal que así `author_book`.
+> Esta tabla sigue una **nomenclatura** para su nombre esta sería: El nombre del modelo1 y el nombre del modelo2 ordenados alfabeticamente, todo en minuscula y separados por un guion bajo, es decir: En mi caso mis modelos son Book y Author, pues se vería tal que así `author_book`.
 
 ##### Creación de la Tabla Puente.
 
@@ -304,7 +302,7 @@ Por ultimo hacemos un `php artisan migrate:refresh` para actualizar las migracio
 
 #### Comprobación N-M
 
-> Ya tendriamos la infraestructura necesaria para poder establecer una relación muchos a muchos a continuación crearemos unos seeders para comprobar que vaya bien. 
+> Ya tendriamos la infraestructura necesaria para poder establecer una relación muchos a muchos a continuación crearemos unos seeders para comprobar que vaya bien.
 
 Para ello creariamos un seeder para ***Book*** y otro para ***Author.***
 
@@ -408,7 +406,7 @@ class BookSeeder extends Seeder
             'pages'=>368,
             'rating'=>5,
         ]);
-      
+    
         Book::create([
             'id'=>4,
             'title'=>'Crónica de una muerte anunciada',
@@ -514,7 +512,7 @@ class BookSeeder extends Seeder
             'pages'=>368,
             'rating'=>5,
         ]);
-      
+    
         Book::create([
             'id'=>4,
             'title'=>'Crónica de una muerte anunciada',
@@ -578,13 +576,13 @@ class BookSeeder extends Seeder
 
 ```
 
-Como veis hemos añadido varias cosas, para empezar añadimos la linea 8 que lo que hace es que proporciona acceso directo a la base de datos para realizar consultas SQL de bajo nivel. En mi caso, lo utilizo para insertar datos directamente en la tabla `author_book` con el método `DB::table()->insert()` que usamos despues justo debajo de la creacion de libros.
+Como veis hemos añadido varios elementos, para empezar añadimos la linea 8 que lo que hace es que proporciona acceso directo a la base de datos para realizar consultas SQL de bajo nivel. En mi caso, lo utilizo para insertar datos directamente en la tabla `author_book` con el método `DB::table()->insert()` que usamos despues justo debajo de la creacion de libros.
 
-> Una vez tengamos listo todo vamos a realizar: 
+> Una vez tengamos listo todo vamos a realizar:
 >
 > 1. `php artisan migrate:reset` para resetearlo todo.
 > 2. `php artisan migrate` para volver a cargar las migraciones de nuevo.
-> 3. php artisan db:seed para volver a poblar las tablas de datos.
+> 3. `php artisan db:seed` para volver a poblar las tablas de datos.
 
 * ***Reset***
 
@@ -633,13 +631,13 @@ Ahora para juntar los modelos debemos de modificarlos de la siguiente manera:
 
 Y para finalizar en nuestro BookController modificaremos la funcion index para poder modificar la vista y asi comprobar que la relación funciona:
 
-> lo que hemos cambiado es 
+> lo que hemos cambiado es
 
 `$books = Book::all();`
 
 > por
 
-`$books = Book::with('authors')->get();` 
+`$books = Book::with('authors')->get();`
 
 > **Y se vería así**
 
@@ -757,7 +755,6 @@ Ahora la vista:
 @endsection
 
 ```
-
 
 > Aqui lo que he añadido nuevo es:
 >
@@ -943,8 +940,6 @@ public function topRated(){
     return view('book.top-rated', compact('books'));
     }
 ```
-
-
 
 ---
 
