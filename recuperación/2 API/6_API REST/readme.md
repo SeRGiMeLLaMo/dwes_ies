@@ -57,7 +57,7 @@ class Author extends Model
 {
     use HasFactory;
   
-    protected $guarder = [];
+    protected $guarded = [];
 
     public function books(): BelongsToMany
     {
@@ -221,9 +221,9 @@ class AuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required'|'string|max:100',
-            'email' => 'required'|'email|max:255|unique:authors,email,'.$this->route('author'),
-            'password' => 'required'|'string|min:8',
+            'username' => 'required|max:100|min:3',
+            'email' => 'required|max:255|min:3',
+            'password' => 'required|min:8',
         ];
     }
 }
