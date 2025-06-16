@@ -1,4 +1,4 @@
-## INTRODUCCIÓN
+INTRODUCCIÓN
 
 El testing es una disciplina dentro del desarrollo. Independientemente de eso, todo desarrollador debe ser capaz de realizar los diferentes tests.
 
