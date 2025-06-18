@@ -1,5 +1,7 @@
 # Testing
 
+![1750060985053](image/readme/1750060985053.png)
+
 > En este documento, veremos al igual que en el 2 trimestre **el testing en laravel** **12** practicaremos mientras que aprendemos sobre estos y documentaremos **paso a paso** para mayor entendimiento.
 
 ---
@@ -18,11 +20,6 @@
 ## Introducción
 
 El testing es una disciplina dentro del desarrollo. Independientemente de eso, todo desarrollador debe ser capaz de realizar los diferentes tests.
-
-### Lo primero:
-
-* ¿Qué vamos a testear?
-* ¿Cuándo?
 
 ## Tipos de Test
 

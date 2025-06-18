@@ -10,5 +10,11 @@ Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
 //ruta para obtener un dato protegido, aprovechamos la de laravel.
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+
+    
 });
+
+
+
+
 

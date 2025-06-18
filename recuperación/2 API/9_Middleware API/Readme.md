@@ -13,6 +13,7 @@
 * Middleware en Grupos de Rutas
 * Ejemplo de middleware
 * Proyecto ApiAuth
+* Ejemplo Con ROLES
 
 ---
 
@@ -42,13 +43,13 @@ Como no tenemos ninguno haremos lo siguiente:
 >
 > `php artisan make:middleware (NombreMiddleware)  //Con esa misma nomenclatura`
 
-En mi caso crearé el middleware **"ejemplo"** para ir probando y ojeando los middleware.
+En mi caso crearé el middleware **"Ejemplo"** para ir probando y ojeando los middleware.
 
-![1749140128279](image/Readme/1749140128279.png)
+![1750035320106](https://file+.vscode-resource.vscode-cdn.net/c%3A/xampp/htdocs/dwes/recuperaci%C3%B3n/2%20API/9_Middleware%20API/image/Readme/1750035320106.png)
 
 como podemos observar ahora si tendremos la carpeta middleware en el caso de que no estuviera anteriormente.
 
-![1749140220598](image/Readme/1749140220598.png)
+![1750056156457](image/Readme/1750056156457.png)
 
 ![1749141910607](image/Readme/1749141910607.png)
 
@@ -193,7 +194,6 @@ El ejemplo va a consistir en lo siguiente:
 3. Si la condición **ES CORRECTA**: Todo está bien, sigue con el controlador.
 4. Si la condición **NO** **ES CORRECTA**: Devuelve una respuesta inmediata **sin pasar al controlador.**
 
-
 Para comenzar con este ejemplo primero crearemos nuestro middleware como hemos visto anteriormente:
 
 ![1750035320106](image/Readme/1750035320106.png)
@@ -260,9 +260,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
 > Esto crea un **alias** llamado `ejemplo` para que puedas llamarlo fácilmente en las rutas.
 
-
-
-Nos vamos a desplazar a routes/web.php y ahi vamos a colocar una ruta:
+Nos vamos a desplazar a ` routes/web.php` y ahi vamos a colocar una ruta:
 
 > web.php
 
@@ -278,7 +276,6 @@ Route::get('/demo', [EjemploController::class, 'index'])
 ```
 
 > Esto significa que **la ruta `/demo` estará protegida por el middleware `Ejemplo`.**
-
 
 Y nos vamos al controlador para crearlo, ruta: `app/Http/Controllers/EjemploController.php`
 
@@ -302,7 +299,6 @@ class EjemploController extends Controller
 }
 
 ```
-
 
 ---
 
@@ -463,12 +459,23 @@ class LoginRequest extends FormRequest
 
 Ahora generamos las validaciones, Laravel nos ofrece una clase ***muy muy útil*** que es la clase ***`Auth`***
 
+> ¿Qué hace la clase `Auth`?
+
+> La clase `Auth` permite:
+>
+> * **Verificar si un usuario está autenticado.**
+> * **Acceder al usuario actualmente autenticado.**
+> * **Realizar el login y logout de los usuarios.**
+> * **Proteger rutas mediante middleware.**
+> * **Validar credenciales de acceso.**
+> * **Gestionar diferentes guardias de autenticación.**
+
 Desde nuestro controlador `AuthController.php` podemos :
 
 1. Acceder a los datos del usuario logueado.
 2. Tratar de loguear a un usuario.
 
-Así se vería actualmente el AuthController, habiendole añadido la función Login:
+Así se vería actualmente el ***AuthController***, habiendole añadido la función ***Login***:
 
 > AuthController.php
 
@@ -549,7 +556,7 @@ class AuthController extends Controller
 
 ```
 
-En Laravel 11, debemos configurar un poco más nuestro modelo User para que podamos hacer uso de las API Tokens generadas.
+En Laravel 11, debemos configurar un poco más nuestro modelo ***User* **para que podamos hacer uso de las API Tokens generadas.
 
 ### Agregar `HasApiTokens` en el modelo `Author`
 
@@ -631,7 +638,6 @@ class User extends Authenticatable
 >
 > ```
 
-
 #### Configuración de las rutas:
 
 Ya que tenemos nuestro controlador, necesitamos especificarlo en nuestras **rutas API**.
@@ -654,15 +660,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 ```
 
-Una vez redefinida nuestra API, vamos a probarla:
+Una vez redefinida nuestra ***API***, vamos a probarla:
 
-Levantamos el servicio:
+> Levantamos el servicio:
 
 ```
 php artisan serve
 ```
 
-Nueva petición en thunderclient:
+> Nueva petición en thunderclient:
 
 **Thunder Client**
 
@@ -670,24 +676,281 @@ Nueva petición en thunderclient:
 
 ![1749178912535](image/Readme/1749178912535.png)
 
-nuestra ruta sera `http://127.0.0.1:8000/api/create` y de tipo post.
+Nuestra ruta será `http://127.0.0.1:8000/api/create` y de tipo post.
 
-Y a continuación en el body, escribimos nuestro primer usuario:
+Y a continuación en el ***body***, escribimos nuestro primer usuario:
 
 ![1750038120242](image/Readme/1750038120242.png)
 
-**Guarda ese TOKEN ya que lo vas a necesitar para autenticarte!**
+**¡Guarda ese TOKEN ya que lo vas a necesitar para autenticarte!**
 
 #### Login User:
 
-Vamos a acceder indicándole el token:
+Vamos a acceder indicándole el ***token***:
 
-En la Autorización debemos entregar el **BEARER** token al usuario, eso se hace desde los headers así:
+En la Autorización debemos entregar el **BEARER** ***token** *al usuario, eso se hace desde los ***headers** *así:
 
 ![1750038641403](image/Readme/1750038641403.png)
 
-A continuación para ver que todo funciona le damos de nuevoa a send y deveria aparecernos lo siguiente:
+A continuación para ver que todo funciona ***clickamos*** de nuevo en **send** y devería aparecer lo siguiente:
 
 ![1750038554445](image/Readme/1750038554445.png)
 
-> Ya sabemos cómo añadir el middleware auth Sanctum mediante sistema de token para poder autenticar a los usuarios.
+> Ya sabemos cómo añadir el middleware ***auth Sanctum*** mediante sistema de ***token** *para poder autenticar a los usuarios.
+
+
+
+---
+
+## Ejemplo con ROLES
+
+Aquí mostrare un sencillo ejemplo de un middleware, que se encargará de diferenciar por roles.
+
+Para comenzar añadiremos el atributo ***rol*** a nuestra tabla user para ello podemos movernos a la carpeta de migraciones y a **create_user_table.**
+
+Una vez nos encontremos ahi lo modificaremos de la siguiente forma:
+
+> Añadiremos esta linea `$table->enum('role', ['admin', 'author'])->default('author');`
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->enum('role', ['admin', 'author'])->default('author');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('users');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('sessions');
+    }
+};
+
+```
+
+> un enum es como una lista de valores etiquetados que se pueden utilizar en lugar de números o cadenas de texto para representar opciones específicas en un programa.
+
+Ahora para que este campo se actualice, en la terminal pondremos:
+
+`php artisan migrate:refresh`
+
+![1750238507713](image/Readme/1750238507713.png)
+
+Ahora crearemos el middleware:
+
+`php artisan make:middleware RoleMiddleware`
+
+![1750238564926](image/Readme/1750238564926.png)
+
+Y dentro de el pondremos lo siguiente:
+
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
+
+
+class RoleMiddleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next, ...$roles): Response
+    {
+        if (!$request->user() || !in_array($request->user()->role, $roles)) {
+        return response()->json(['message' => 'No autorizado.'], 403);
+    }
+
+    return $next($request);
+    }
+}
+
+```
+
+`...$roles: esto significa que puedes pasar varios roles como parámetros separados por coma.`
+
+`!$request->user() // Verifica si no hay un usuario autenticado. Esto protege contra solicitudes no autenticadas (usuarios sin token válido).`
+
+`!in_array($request->user()->role, $roles) // Verifica si el rol del usuario NO está en la lista de roles permitidos que le pasaste al middleware.`
+
+> Si alguna de estas condiciones es verdadera = significa que **el usuario no está autorizado.**
+>
+> Si el usuario  **no pasa la verificación** , aquí devuelve una respuesta JSON con **código 403 Forbidden.**
+>
+> Esto detiene la ejecución y **NO permite que la solicitud siga al siguiente middleware ni al controlador.**
+
+`return $next($request);`
+
+Si el usuario está autenticado y su rol es válido, este método pasa la solicitud al siguiente paso del flujo (ya sea otro middleware o el controlador final).
+
+---
+
+Registramos el middleware en Bootstrap/app.php:
+
+```php
+->withMiddleware(function (Middleware $middleware): void {   
+    	$middleware->alias([   
+	'role' => \App\Http\Middleware\RoleMiddleware::class,   
+]);
+```
+
+Se vería así:
+
+```php
+<?php
+
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        api: __DIR__.'/../routes/api.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+        /* $middleware->alias([
+        'ejemplo' => \App\Http\Middleware\Ejemplo::class,
+    ]);*/
+    $middleware->alias([
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+    ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        //
+    })->create();
+
+```
+
+Una vez ya hemos visto y modificado el middleware apliquemos las rutas de la API dependiendo de los roles, pongamos de ejemplo que los admins podran ver todos los libros, los autores solo los suyos y ambos podran ver la opcion de perfil, quedaría tal que así:
+
+```php
+use App\Http\Controllers\LibroController;
+use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Route;
+
+// Ruta protegida solo para admin
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/admin/libros', [AdminController::class, 'libros']);
+});
+//Si el usuario se ha autenticado y tiene el role=admin puede traerse todos los libros con la funcion libros del controlador de admin
+
+
+// Ruta protegida solo para cliente
+Route::middleware(['auth:sanctum', 'role:cliente'])->group(function () {
+    Route::get('/cliente/libros', [LibroController::class, 'misLibros']);
+});
+//Si el usuario se ha autenticado y tiene el role=cliente puede traerse todos sus libros con la funcion misLibros del controlador de Libro
+
+
+// Ruta accesible para ambos
+Route::middleware(['auth:sanctum', 'role:cliente,admin'])->group(function () {
+    Route::get('/perfil', function () {
+        return response()->json(['user' => auth()->user()]);
+    });
+//Si el usuario se ha autenticado y tiene el role=cliente||admin  puede ver el perfil.
+
+
+});
+
+```
+
+> Esto es un ejemplo de como se haría.
+
+---
+
+Ahora solo quedaría probar para ello se puede utilizar ***thunder client***:
+
+#### **Registro:**
+
+###### Enlace :
+
+POST `http://localhost:8000/api/register` (o */api/store* si es como la nombraste)
+
+###### Body:
+
+```json
+{
+    "name": "Federico",
+    "email": "federico@prueba.com",
+    "password": "123456789",
+}
+```
+
+Opcional: Puedes permitir que al registrarse envíen el *role* (si quieres).
+
+#### **Login:**
+
+###### Enlace:
+
+POST `http://localhost:8000/api/login`
+
+###### Body:
+
+```json
+{
+    "email": "federico@prueba.com",
+    "password": "123456789"
+}
+```
+
+Copia el token que te devuelve.
+
+En Thunder Client, en la pestaña "*Authorization*" selecciona ***Bearer Token*** y pega el token.
+
+> Llama a:
+>
+> * GET `/api/admin/libros` (solo si el rol es admin)
+> * GET `/api/cliente/libros` (solo si el rol es cliente)
+> * GET `/api/perfil` (para ambos roles)
+
+---
+
+Y este sería un ejemplo de como usar un middleware para los roles en un futuro podremos profundizar en el y darle el uso que deseamos.
